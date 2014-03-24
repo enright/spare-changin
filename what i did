@@ -1,0 +1,183 @@
+some early thoughts (after creating kraken app)
+-------------------------------------
+/*
+module init tests:
+provided with fromFile - truthy and falsey values behave as expected?
+Or perhaps non bool throws exception? (can't see a reason why we should allow null, undefined etc)
+provided with conversionFilePath - non exising file throws exception?
+
+if init'd with fromFile true
+webservice can be undefined or null etc.
+function should not talk to the webservice when whichFunc is called
+
+if init'd with fromFile false
+webservice cannot be undefined or null - needs to be a url? function?
+*/
+requre('currencyConverter');
+describe('converter module', function () {
+  it('
+});
+
+-------------------------------------------
+figured out how to create a kraken app
+install yo, kraken generator
+installed grunt, ran grunt test - saw that test ran jshint and mocha
+
+transaction history
+could this be something user enters?
+using the current currency
+then can change current?
+
+module for currency values
+there is a file with 'last values'
+we'd like to update that file
+read/write json
+{ "USD": 1.00,
+"EUR": 2.50, etc.
+
+thinking about file systems and data structures (sunday morning)
+presume that configuraiton is important
+even though there might be contention for the conversion file
+presume that client provides a file just for this instance
+and we update that file
+our little service should not be worried about the kinds of interactions
+that come with sharing the file
+
+I need a FAKE web service
+// provide fromFile (tells whether to use webservice)
+// and source file
+// the source file is used for initial data if fromFile is false
+// if source file not provided or not found a minimal data structure is used
+// 
+module exports = function(fromFile, conversionFilePath, webServiceURL) {
+  // we presume we may not be provided a conversion file path
+  function initConversions(conversionFilePath) {
+    // we use USD as the base, so that this is a sufficient
+    // default data structure
+    var conversions = { currency: 'USD'
+      symbol: '$',
+      xchange: '1.0'
+    };
+    if (conversionFilePath && fs.existsSync(conversionFilePath)) {
+    // read sync?
+    return JSON.parse(*filecontent*);
+    } else {
+      console.log("conversion file
+    return conversions;
+  }
+  function writeConversion(conversions) {
+    // write to a temp file
+    // use uuid
+    // then rename synch
+    // maybe an issue here with multiple simultaneous writes...but presume ok
+    fs.writeFile(tempfile, JSON.toString(conversions), 'utf8', function () {
+      // unlink could fail
+      fs.unlinkSync(conversionFilePath);
+      fs.renameSync(tempfile, conversionFilePath);
+    });
+  }
+  // always read the conversions initially in case ws call fails
+  var conversions = initConversions();
+  var whichFunc = function (from, to, amount) {
+  };
+  if (convertFromFile) {
+    whichFunc = function (from, to, amount) {
+      // get the currency conversion
+      // report back 
+      // update the file if it is different
+      if (conversionHasChanged(conversions)) {
+        writeConversions(conversions);
+      }
+    }
+  }
+  return whichFunc;
+};
+
+module init tests:
+provided with fromFile - truthy and falsey values behave as expected?
+Or perhaps non bool throws exception? (can't see a reason why we should allow null, undefined etc)
+provided with conversionFilePath - non exising file throws exception?
+
+if init'd with fromFile true
+webservice can be undefined or null etc.
+function should not talk to the webservice when whichFunc is called
+
+if init'd with fromFile false
+webservice cannot be undefined or null - needs to be a url? function?
+
+ok there's a disk file
+we are told where it is
+we attempt to read - what is the fallback?
+
+conversion - minimal data structure allows convert between USD and USD
+tests
+convert 1 usd to usd - result 1
+convert 1 usd to canadian - result failure 200 - something
+
+
+approx 5 hours spent BEFORE Saturday (from previous Sunday)
+
+Saturday 230 or 3 to 420
+unit tests for conversion without web service
+TDD
+toUSD, toOther functions
+
+next up with web service
+app id 58ae7feb73e64cf3b631fb5f1a6e463c
+openexchangerates.org
+http://openexchangerates.org/api/
+/api/latest.json?app_id=58ae7feb73e64cf3b631fb5f1a6e463c
+
+wrangled with modules. one client separated host from url
+and that seemed to wonky
+so i went with the 'request' module by mikeal (mr. nodeconf)
+it just takes a full url and has an easy option to say it's a json
+request - and it then parses body into json
+lots of users
+5:53
+updating from the open exchange rate web service
+(not overwriting the file yet - storing in a different location)
+time to replace the file and test that it has been changed!
+
+10 pm
+little tricky on the debugging...mocha ends before file is re-written
+can hack it with a timeout...ick
+30 minutes to set it up
+reset data file on describe of tests
+
+added test to verify that file has changed
+npm installed the module to the spare-changin app
+11:20 bed
+
+noon sunday
+read about kraken and how things are organized
+started creating controller for currency convert
+
+interrupted 30 minutes to play with phtoshop old photo
+
+1pm sunday almost done with first controller
+140 pm break
+2pm start again
+just realized i need the symbol returned from the module
+go back to currencyConverter module and return symbol with amount
+235 both currencyConversion and conversionRate URLs are working
+
+So now...how to create a page with kraken...start with controller duh
+
+took a 15 minute break - decided needed transaction ids for
+activity, that way
+decided to implement basic web service calls to CRUD on transactions
+not tested, but implemented as of 4:20
+
+just killed myself for an hour because i was tryin gto use a feature of supertest
+but itwas a 0.9 feature and kraken was set up with ~0.8
+UGGGGG
+
+6pm I just had to turn of CSRF because I wanted to implement put/post/del
+but I simply don't have time to understand how to use the token mechanism
+
+have unit tests for all web service functions
+6:40
+
+time for a break!!!!!
+yikes not back at it until 10:10 pme!
