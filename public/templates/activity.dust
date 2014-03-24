@@ -1,0 +1,6 @@
+ <h1>{title}</h1>
+ <ul>
+ {#transactions}
+  <li>{transaction.date}{transaction.type}{transaction.place}{transaction.symbol}{transaction.amount}</li>{~n}
+ {/transactions}
+ </ul>

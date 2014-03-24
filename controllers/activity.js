@@ -78,15 +78,27 @@ module.exports = function(server) {
 		}
 	});
 	
+	// dust only likes arrays
+	function createTransactionArray(transactions) {
+		var trx = [],
+			trxid;
+		for (trxid in transactions) {
+			if (transactions.hasOwnProperty(trxid)) {
+				trx.push({ id: trxid, transaction: transactions[trxid] });
+			}
+		}
+		return trx;
+	}
+	
 	// return all transactions or page if req is not for json
 	server.get('/paypal/activity', function (req, res) {
-		console.log('get activity');
 		var accept = req.header('Accept'),
 			isJsonRequest = accept && accept.match(/json/);
 		if (isJsonRequest) {
 			res.json(200, activityModel.transactions);
 		} else {
-			res.render('index', activityModel);
+			
+			res.render('activity', { title: activityModel.title, transactions: createTransactionArray(activityModel.transactions) });
 		}
 	});
 };

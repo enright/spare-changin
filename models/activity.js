@@ -3,6 +3,7 @@
 
 module.exports = function ActivityModel() {
 	return {
+		title:"Transaction History",
 		transactions: {
 			id1: {date: new Date(2014, 1, 10),
 			type: 'Purchase',
