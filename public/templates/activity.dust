@@ -1,6 +1,17 @@
+{>"layouts/master" /}
+
+{<body}
  <h1>{title}</h1>
- <ul>
+ <ul class="trxlist">
  {#transactions}
-  <li>{transaction.date}{transaction.type}{transaction.place}{transaction.symbol}{transaction.amount}</li>{~n}
+  <li>
+  	<ul class="trx">
+  		<li class="trx trxdate">{@formatDate date="{transaction.date}" format="dddd MMM Do YY"/}</li>
+  		<li class="trx trxtype">{transaction.type}</li>
+  		<li class="trx trxplace">{transaction.place}</li>
+  		<li class="trx trxamount">{@formatCurrencyAmount symbol="{transaction.symbol}" amount="{transaction.amount}" /}</li>
+  	</ul>
+  </li>{~n}
  {/transactions}
  </ul>
+ {/body}

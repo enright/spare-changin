@@ -4,6 +4,15 @@
     <meta charset="utf-8" />
     <title>{+title /}</title>
     <link rel="stylesheet" href="css/app.css" />
+    <style>
+    	ul.trxlist { float:left; list-style-type:none; height:inherit; border:0px; margin:0px; padding:0px; width:800px; }
+    	ul.trx { float:left; list-style-type:none; height:inherit; border:0px; margin:0px; padding:0px; width:800px; }
+		li.trx { display:inline-block; height:inherit; width:100px}
+		li.trxdate { width:200px}
+		li.trxtype { width:100px}
+		li.trxplace { width:200px}
+		li.trxamount { width:100px}
+	</style>
 </head>
 <body>
 <div id="wrapper">
