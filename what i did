@@ -129,7 +129,7 @@ http://openexchangerates.org/api/
 /api/latest.json?app_id=58ae7feb73e64cf3b631fb5f1a6e463c
 
 wrangled with modules. one client separated host from url
-and that seemed to wonky
+and that seemed too wonky
 so i went with the 'request' module by mikeal (mr. nodeconf)
 it just takes a full url and has an easy option to say it's a json
 request - and it then parses body into json
@@ -187,3 +187,7 @@ monday 930-1130 messing with dust
 created two helpers
 created lists (style type none, inner list is inline block)
 styles for each column
+
+tues 10-11 got the alternating rows coloring going
+wouldnt' this have been a billion times easier in jade?
+
