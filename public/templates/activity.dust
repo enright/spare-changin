@@ -5,8 +5,14 @@
  <ul class="trxlist">
  {#transactions}
   <li>
-  	<ul class="trx">
-  		<li class="trx trxdate">{@formatDate date="{transaction.date}" format="dddd MMM Do YY"/}</li>
+  	<ul {@math key="{$idx}" method="mod" operand="2"}
+    	{@eq value=0}
+        	class="trxeven"
+    	{:else}
+         	class="trxodd"
+    	{/eq}
+ 		{/math}>
+  		<li class="trx trxdate">{@formatDate date="{transaction.date}" format="L"/}</li>
   		<li class="trx trxtype">{transaction.type}</li>
   		<li class="trx trxplace">{transaction.place}</li>
   		<li class="trx trxamount">{@formatCurrencyAmount symbol="{transaction.symbol}" amount="{transaction.amount}" /}</li>
